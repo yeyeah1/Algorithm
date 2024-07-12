@@ -1,41 +1,38 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.util.Arrays;
-import java.util.StringTokenizer;
 
 public class Main {
+    public static void main(String[] args) throws IOException {
 
-	public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int N = Integer.parseInt(br.readLine());
 
-		int N = Integer.parseInt(br.readLine());
+        String score1 = br.readLine();
+        String score2 = br.readLine();
 
-		int[] A = new int[N];
-		int[] B = new int[N];
+        String[] box1 = score1.split(" ");
+        String[] box2 = score2.split(" ");
 
-		StringTokenizer st = new StringTokenizer(br.readLine(), " ");
-		for (int i = 0; i < N; i++) {
-			A[i] = Integer.parseInt(st.nextToken());
-		}
+        int[] newbox1 = new int[N];
+        int[] newbox2 = new int[N];
 
-		st = new StringTokenizer(br.readLine(), " ");
-		for (int i = 0; i < N; i++) {
-			B[i] = Integer.parseInt(st.nextToken());
-		} // 배열 정보 입력 완
+        for (int i = 0; i < N; i++) {
+            newbox1[i] = Integer.parseInt(box1[i]);
+            newbox2[i] = Integer.parseInt(box2[i]);
+        }
 
-		Arrays.sort(A);
-		Arrays.sort(B);
+        Arrays.sort(newbox1);
+        Arrays.sort(newbox2);
 
-		int sum = 0;
+        int res = 0;
 
-		for (int i = 0, j = N - 1; i < N; i++, j--) {
-			sum += A[i] * B[j];
-		}
+        for (int i = 0; i < N; i++) {
+            int mul = newbox1[i] * newbox2[N - 1 - i];
+            res += mul;
+        }
 
-		System.out.println(sum);
+        System.out.println(res);
 
-	}// main
-
-}
+    } //main
+} //class
