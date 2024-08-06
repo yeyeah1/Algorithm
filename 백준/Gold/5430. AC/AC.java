@@ -1,3 +1,4 @@
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -6,78 +7,88 @@ import java.util.LinkedList;
 import java.util.StringTokenizer;
 
 public class Main {
-	public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException {
 
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringBuilder sb = new StringBuilder();
 
-		int T = Integer.parseInt(br.readLine());
-		StringBuilder sb = new StringBuilder();
+        int T = Integer.parseInt(br.readLine());
 
-		loop: for (int tc = 1; tc <= T; tc++) {
+        loop:
+        for (int tc = 1; tc <= T; tc++) {
 
-			Deque<Integer> deque = new LinkedList<>();
+            String str = br.readLine();
 
-			String str = br.readLine();
+            int comLen = str.length();
 
-			int comLen = str.length();
+            Deque<Integer> deque = new LinkedList<>();
 
-			String[] command = str.split("");
+            String[] command = str.split("");
 
-			int N = Integer.parseInt(br.readLine());
+            int N = Integer.parseInt(br.readLine());
 
-			StringTokenizer st = new StringTokenizer(br.readLine(), "[],");
-			for (int i = 0; i < N; i++) {
-				deque.offer(Integer.parseInt(st.nextToken()));
-			} // 덱에 정수 넣기
+            StringTokenizer st = new StringTokenizer(br.readLine(), "[],");
 
-			boolean flag = false; // false면 first, true면 last에서 꺼내기
+            for (int i = 0; i < N; i++) {
+                deque.offer(Integer.parseInt(st.nextToken()));
+            }
 
-			for (int i = 0; i < comLen; i++) {
+            boolean flag = false; // false -> first, true -> last
 
-				String now = command[i];
+            for (int i = 0; i < comLen; i++) {
 
-				switch (now) {
+                String now = command[i];
 
-				case "R":
-					if (flag) {
-						flag = false;
-					} else {
-						flag = true;
-					}
-					break;
-				case "D":
-					if (deque.isEmpty()) {
-						sb.append("error").append("\n");
-						continue loop;
+                switch (now) {
 
-					} else {
-						if (flag) { // last
-							deque.pollLast();
-						} else {
-							deque.pollFirst();
-						}
-					}
-					break;
-				}// switch
-			}
+                    case "R":
+                        if (flag) {
+                            flag = false;
+                        } else {
+                            flag = true;
+                        }
+                        break;
 
-			sb.append("[");
+                    case "D":
+                        if (deque.isEmpty()) {
+                            sb.append("error").append("\n");
+                            continue loop;
+                        } else {
+                            if (flag) {
+                                deque.pollLast();
+                            } else {
+                                deque.pollFirst();
+                            }
+                        }
 
-			int size = deque.size();
-			for (int i = 0; i < size; i++) {
+                        break;
+                } // switch
+            } // command
 
-				if (!flag) { // first
-					sb.append(deque.pollFirst());
-				} else { // last
-					sb.append(deque.pollLast());
-				}
+            // 출력
 
-				if (i != size - 1)
-					sb.append(",");
-			}
+            sb.append("[");
 
-			sb.append("]").append("\n");
-		} // tc
-		System.out.println(sb.toString());
-	}
+            int size = deque.size();
+
+            for(int i = 0; i < size; i++){
+
+                if(!flag) {
+                    sb.append(deque.pollFirst());
+                } else {
+                    sb.append(deque.pollLast());
+                }
+
+                if(i != size -1){
+                    sb.append(",");
+                }
+            }
+
+            sb.append("]").append("\n");
+
+        } // tc
+
+        System.out.println(sb.toString());
+
+    } // main
 }
