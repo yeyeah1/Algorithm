@@ -7,13 +7,10 @@ public class Main {
 
 	public static void main(String[] args) throws IOException {
 
-		//전공평점은 전공과목별 (학점 × 과목평점)의 합을 학점의 총합으로 나눈 값
 		
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		StringTokenizer st;
 		
-		//내가 필요한 요소는 과목이름 다음에 나오는 입력값들 (학점이랑 과목평점)
-		//근데 어차피 과목 평점도 String이니까 그냥 받지 뭐
 		
 		String[][] score = new String[20][3];
 		
@@ -46,9 +43,7 @@ public class Main {
 				default : score2[i][j] = Double.parseDouble(score[i][k]);
 
 				}
-//				System.out.print(score2[i][j] + " ");
 			}
-//			System.out.println();
 		}
 		
 		double[][] res = new double[20][1];
@@ -58,7 +53,6 @@ public class Main {
 		for(int i = 0, k = 0; i < 20; i++) {
 				res[i][k] = score2[i][0] * score2[i][1];
 				sum += score2[i][0];
-//				System.out.println(res[i][k]);
 		} // 학점 x 과목평점
 		
 		double result = 0;
